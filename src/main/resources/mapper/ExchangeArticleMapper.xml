@@ -37,6 +37,7 @@
         <result property="userId" column="user_id" />
         <result property="userName" column="user_name" />
         <result property="userNickname" column="user_nickname" />
+        <result property="userAvatar" column="user_avatar" />
         <result property="title" column="title" />
         <result property="content" column="content" />
         <result property="coverUrl" column="cover_url" />
@@ -127,6 +128,7 @@
             a.user_id,
             u.username AS user_name,
             u.nickname AS user_nickname,
+            u.avatar AS user_avatar,
             a.title,
             a.cover_url,
             a.status,
@@ -157,6 +159,7 @@
             a.user_id,
             u.username AS user_name,
             u.nickname AS user_nickname,
+            u.avatar AS user_avatar,
             a.title,
             a.content,
             a.cover_url,

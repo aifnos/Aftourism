@@ -5,6 +5,7 @@ declare namespace Api {
       userId: number
       userName?: string
       userNickname?: string
+      userAvatar?: string
       title: string
       content?: string
       coverUrl?: string
@@ -22,9 +23,11 @@ declare namespace Api {
       reporterId: number
       reporterName?: string
       reporterNickname?: string
+      reporterAvatar?: string
       targetUserId: number
       targetUserName?: string
       targetUserNickname?: string
+      targetUserAvatar?: string
       targetType: string
       targetTypeText?: string
       targetId: number

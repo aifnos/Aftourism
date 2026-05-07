@@ -104,7 +104,7 @@
 
   const defaultProps = {
     children: 'children',
-    label: (data: MenuTreeNode) => data.label || ''
+    label: (data: any) => data.label || ''
   }
 
   // 全量节点 key 列表，便于全选与状态判断
@@ -138,7 +138,7 @@
     const buildNodes = (items: AppRouteRecord[]): MenuTreeNode[] =>
       items.map((item) => {
         const menuId = item.id
-        const title = resolveMenuLabel(item.meta?.title || item.name)
+        const title = resolveMenuLabel(item.meta?.title || String(item.name || ''))
         const children: MenuTreeNode[] = []
 
         if (item.children?.length) {

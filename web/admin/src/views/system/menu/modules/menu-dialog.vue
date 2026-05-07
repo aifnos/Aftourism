@@ -70,6 +70,7 @@
   }
 
   interface MenuFormData {
+    menuType: 'menu' | 'button'
     id: number
     name: string
     path: string
@@ -98,7 +99,7 @@
 
   interface Props {
     visible: boolean
-    editData?: AppRouteRecord | { title?: string; authMark?: string; sort?: number } | null
+    editData?: AppRouteRecord | { title?: string; authMark?: string; icon?: string; sort?: number } | null
     type?: 'menu' | 'button'
     lockType?: boolean
   }
@@ -292,15 +293,15 @@
     isEdit.value = true
 
     if (form.menuType === 'menu') {
-      const row = props.editData
+      const row = props.editData as AppRouteRecord
       form.id = row.id || 0
       form.name = formatMenuTitle(row.meta?.title || '')
       form.path = row.path || ''
-      form.label = row.name || ''
-      form.component = row.component || ''
+      form.label = String(row.name || '')
+      form.component = typeof row.component === 'string' ? row.component : ''
       form.icon = row.meta?.icon || ''
       form.sort = row.meta?.sort || 1
-      form.isMenu = row.meta?.isMenu ?? true
+      form.isMenu = typeof row.meta?.isMenu === 'boolean' ? row.meta.isMenu : true
       form.keepAlive = row.meta?.keepAlive ?? false
       form.isHide = row.meta?.isHide ?? false
       form.isHideTab = row.meta?.isHideTab ?? false
@@ -314,7 +315,7 @@
       form.roles = row.meta?.roles || []
       form.isFullPage = row.meta?.isFullPage ?? false
     } else {
-      const row = props.editData
+      const row = props.editData as { title?: string; authMark?: string; icon?: string; sort?: number }
       form.authName = row.title || ''
       form.authLabel = row.authMark || ''
       form.authIcon = row.icon || ''

@@ -25,9 +25,11 @@
         <result property="reporterId" column="reporter_id" />
         <result property="reporterName" column="reporter_name" />
         <result property="reporterNickname" column="reporter_nickname" />
+        <result property="reporterAvatar" column="reporter_avatar" />
         <result property="targetUserId" column="target_user_id" />
         <result property="targetUserName" column="target_user_name" />
         <result property="targetUserNickname" column="target_user_nickname" />
+        <result property="targetUserAvatar" column="target_user_avatar" />
         <result property="targetType" column="target_type" />
         <result property="targetId" column="target_id" />
         <result property="reasonType" column="reason_type" />
@@ -69,9 +71,11 @@
             r.reporter_id,
             reporter.username AS reporter_name,
             reporter.nickname AS reporter_nickname,
+            reporter.avatar AS reporter_avatar,
             r.target_user_id,
             target_user.username AS target_user_name,
             target_user.nickname AS target_user_nickname,
+            target_user.avatar AS target_user_avatar,
             r.target_type,
             r.target_id,
             r.reason_type,

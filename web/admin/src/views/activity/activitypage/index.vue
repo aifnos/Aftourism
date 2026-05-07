@@ -130,7 +130,19 @@ type Activity = Api.Activity.ActivityManageVO
 
 const dialogType = ref<'add' | 'edit'>('add')
 const dialogVisible = ref(false)
-const current = reactive<Partial<Activity>>({ name: '', coverUrl: '', startTime: '', endTime: '', category: '', venueId: 1, organizer: '', contactPhone: '', intro: '', addressCache: '', onlineStatus: 0 })
+const current = reactive<Partial<Activity> & { intro: string }>({
+  name: '',
+  coverUrl: '',
+  startTime: '',
+  endTime: '',
+  category: '',
+  venueId: 1,
+  organizer: '',
+  contactPhone: '',
+  intro: '',
+  addressCache: '',
+  onlineStatus: 0
+})
 const formRef = ref<FormInstance>()
 
 const rules = reactive({
@@ -232,4 +244,3 @@ const coverUploadRequest = async (options: any) => {
 
 <style scoped>
 </style>
-

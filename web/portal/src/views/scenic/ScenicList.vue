@@ -134,7 +134,7 @@ watch(keyword, () => {
 onMounted(loadList);
 
 const goDetail = (id: number) => router.push(`/scenic/${id}`);
-const goMap = () => router.push('/scenic/map');
+const goMap = () => router.push('/map?type=scenic');
 const toggleFavorite = async (id: number) => {
   if (!userStore.isLogin) {
     ElMessage.warning('请先登录后再收藏');

@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, nextTick, watch } from 'vue'
+import { ref, shallowRef, onMounted, onUnmounted, computed, nextTick, watch } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { fetchGetVenuePage } from '@/api/venue'
@@ -83,13 +83,13 @@ interface MapItem {
   isFree?: number
 }
 
-const map = ref<L.Map | null>(null)
-const tileLayer = ref<L.TileLayer | null>(null)
+const map = shallowRef<L.Map | null>(null)
+const tileLayer = shallowRef<L.TileLayer | null>(null)
 const list = ref<MapItem[]>([])
 const keyword = ref('')
 const activeId = ref<number | null>(null)
 const markerMap = new Map<number, L.CircleMarker>()
-const layerGroup = ref<L.LayerGroup | null>(null)
+const layerGroup = shallowRef<L.LayerGroup | null>(null)
 
 // 过滤列表
 const filteredList = computed(() => {

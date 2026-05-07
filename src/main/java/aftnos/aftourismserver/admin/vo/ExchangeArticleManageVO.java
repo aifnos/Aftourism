@@ -13,6 +13,7 @@ public class ExchangeArticleManageVO {
     private Long userId;
     private String userName;
     private String userNickname;
+    private String userAvatar;
     private String title;
     /** 富文本内容 */
     private String content;

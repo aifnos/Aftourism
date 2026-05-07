@@ -1,4 +1,4 @@
-// 权限文档：https://www.artd.pro/docs/zh/guide/in-depth/permission.html
+// 后台路由权限由后端菜单与本地静态路由共同控制
 import { AppRouteRecord } from '@/types/router'
 import { routeModules } from '../modules'
 

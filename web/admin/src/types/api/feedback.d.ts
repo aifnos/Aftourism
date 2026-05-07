@@ -5,6 +5,7 @@ declare namespace Api {
       userId: number
       userName?: string
       userNickname?: string
+      userAvatar?: string
       title?: string
       content: string
       contactPhone?: string

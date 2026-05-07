@@ -206,6 +206,9 @@ const api = {
   del<T>(config: ExtendedAxiosRequestConfig) {
     return retryRequest<T>({ ...config, method: 'DELETE' })
   },
+  delete<T>(config: ExtendedAxiosRequestConfig) {
+    return retryRequest<T>({ ...config, method: 'DELETE' })
+  },
   request<T>(config: ExtendedAxiosRequestConfig) {
     return retryRequest<T>(config)
   }

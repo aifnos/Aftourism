@@ -47,7 +47,13 @@
           <ElCard shadow="never" class="mb-3">
             <p>评论ID：{{ detail.comment.id }}</p>
             <p>活动ID：{{ detail.comment.activityId }}</p>
-            <p>用户：{{ detail.comment.userNickname }}</p>
+            <div class="detail-user-row">
+              <span>用户：</span>
+              <ElAvatar :size="32" :src="detail.comment.userAvatar || undefined">
+                {{ avatarInitial(commentUserName(detail.comment)) }}
+              </ElAvatar>
+              <span>{{ commentUserName(detail.comment) }}</span>
+            </div>
             <p>内容：{{ detail.comment.content }}</p>
             <p>时间：{{ detail.comment.createTime }}</p>
           </ElCard>
@@ -58,7 +64,12 @@
             <div>
               <div v-for="item in detail.replies" :key="item.id" class="p-2 border-b">
                 <div class="flex-cb">
-                  <span>{{ item.userNickname }}（ID:{{ item.id }}）</span>
+                  <div class="reply-user">
+                    <ElAvatar :size="28" :src="item.userAvatar || undefined">
+                      {{ avatarInitial(commentUserName(item)) }}
+                    </ElAvatar>
+                    <span>{{ commentUserName(item) }}（ID:{{ item.id }}）</span>
+                  </div>
                   <div class="flex gap-2">
                     <ElButton size="small" @click="showReplyDialog(detail.comment, item)">回复</ElButton>
                     <ElButton size="small" @click="showEditDialog(item)">编辑</ElButton>
@@ -91,7 +102,7 @@
             <ElInputNumber v-model="editForm.parentId" :min="0" />
           </ElFormItem>
           <ElFormItem label="内容" prop="content">
-            <ElInput v-model="editForm.content" type="textarea" rows="4" />
+            <ElInput v-model="editForm.content" type="textarea" :rows="4" />
           </ElFormItem>
         </ElForm>
         <template #footer>
@@ -115,7 +126,7 @@
             <ElInputNumber v-model="createForm.userId" :min="1" />
           </ElFormItem>
           <ElFormItem label="内容" prop="content">
-            <ElInput v-model="createForm.content" type="textarea" rows="4" />
+            <ElInput v-model="createForm.content" type="textarea" :rows="4" />
           </ElFormItem>
         </ElForm>
         <template #footer>
@@ -128,8 +139,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, nextTick } from 'vue'
-import { ElMessage, ElMessageBox, ElSpace, ElButton, ElInput, ElInputNumber, ElRadioGroup, ElRadioButton, ElSwitch, type FormInstance } from 'element-plus'
+import { ref, reactive, computed, nextTick, h } from 'vue'
+import { ElAvatar, ElMessage, ElMessageBox, ElSpace, ElButton, ElInput, ElInputNumber, ElRadioGroup, ElRadioButton, ElSwitch, type FormInstance } from 'element-plus'
 import ArtSearchBar from '@/components/core/forms/art-search-bar/index.vue'
 import ArtTableHeader from '@/components/core/tables/art-table-header/index.vue'
 import ArtTable from '@/components/core/tables/art-table/index.vue'
@@ -141,6 +152,18 @@ defineOptions({ name: 'ActivityCommentPage' })
 
 type CommentVO = Api.Activity.ActivityCommentVO
 type CommentDetailVO = Api.Activity.ActivityCommentDetailVO
+
+const commentUserName = (item?: Pick<CommentVO, 'userNickname' | 'userId'> | null) => {
+  return item?.userNickname || (item?.userId ? `用户${item.userId}` : '未知用户')
+}
+
+const avatarInitial = (name?: string) => name?.trim().slice(0, 1) || '游'
+
+const renderUserCell = (row: CommentVO) =>
+  h('div', { class: 'comment-user-cell' }, [
+    h(ElAvatar, { size: 32, src: row.userAvatar || undefined }, () => avatarInitial(commentUserName(row))),
+    h('span', { class: 'comment-user-cell__name' }, commentUserName(row))
+  ])
 
 const viewMode = ref<'threaded' | 'flat'>('threaded')
 const handleViewModeChange = () => {
@@ -161,39 +184,57 @@ const searchItems = computed(() => [
   { key: 'commentId', label: '评论ID', type: 'input', props: { placeholder: '按评论ID查看详情' } }
 ])
 
+type CommentTableResponse = Api.Common.PaginatedResponse<CommentVO>
+
+const toCommentTableResponse = (
+  list: CommentVO[],
+  total: number,
+  pageNum?: number,
+  pageSize?: number
+): CommentTableResponse => ({
+  records: list,
+  list,
+  total,
+  current: pageNum || 1,
+  size: pageSize || 10,
+  pageNum: pageNum || 1,
+  pageSize: pageSize || 10
+})
+
+const fetchCommentTableData = async (
+  params: Partial<Api.Activity.ActivityCommentSearchParams>
+): Promise<CommentTableResponse> => {
+  const activityId = Number(searchForm.value.activityId)
+  const requestParams: Partial<Api.Activity.ActivityCommentSearchParams> = { ...params }
+  if (searchForm.value.parentId !== '') requestParams.parentId = Number(searchForm.value.parentId)
+
+  const res =
+    !Number.isNaN(activityId) && activityId > 0
+      ? await fetchGetCommentsByActivity(activityId, requestParams)
+      : await fetchGetAllCommentsPage(requestParams)
+
+  if (viewMode.value === 'flat') {
+    const childrenLists = await Promise.all(
+      (res.list || []).map((row) => (row.childCount > 0 ? fetchCommentChildren(row.id) : Promise.resolve([])))
+    )
+    const flat = ([] as CommentVO[]).concat(...childrenLists)
+    const combined = (res.list || []).concat(flat)
+    return toCommentTableResponse(combined, combined.length, res.pageNum, res.pageSize)
+  }
+
+  return toCommentTableResponse(res.list || [], res.total || 0, res.pageNum, res.pageSize)
+}
+
 const { columns, columnChecks, data, loading, pagination, getData, searchParams, resetSearchParams, handleSizeChange, handleCurrentChange, refreshData, refreshRemove } = useTable({
   core: {
-    apiFn: async (params) => {
-      const activityId = Number(searchForm.value.activityId)
-      const requestParams: any = { ...params }
-      if (searchForm.value.parentId !== '') requestParams.parentId = Number(searchForm.value.parentId)
-      if (!Number.isNaN(activityId) && activityId > 0) {
-        const res = await fetchGetCommentsByActivity(activityId, requestParams)
-        if (viewMode.value === 'flat') {
-          const childrenLists = await Promise.all(res.list.map((r: CommentVO) => (r.childCount > 0 ? fetchCommentChildren(r.id) : Promise.resolve([]))))
-          const flat = ([] as CommentVO[]).concat(...childrenLists)
-          const combined = res.list.concat(flat)
-          return { data: res, records: combined, total: combined.length, current: res.pageNum, size: res.pageSize }
-        }
-        return { data: res, records: res.list, total: res.total, current: res.pageNum, size: res.pageSize }
-      } else {
-        const res = await fetchGetAllCommentsPage(requestParams)
-        if (viewMode.value === 'flat') {
-          const childrenLists = await Promise.all(res.list.map((r: CommentVO) => (r.childCount > 0 ? fetchCommentChildren(r.id) : Promise.resolve([]))))
-          const flat = ([] as CommentVO[]).concat(...childrenLists)
-          const combined = res.list.concat(flat)
-          return { data: res, records: combined, total: combined.length, current: res.pageNum, size: res.pageSize }
-        }
-        return { data: res, records: res.list, total: res.total, current: res.pageNum, size: res.pageSize }
-      }
-    },
+    apiFn: fetchCommentTableData,
     apiParams: { current: 1, size: 10 },
     columnsFactory: () => [
       { type: 'selection', width: 50 },
       { type: 'globalIndex', width: 60, label: '序号' },
       { prop: 'id', label: '评论ID', width: 100 },
       { prop: 'activityId', label: '活动ID', width: 100 },
-      { prop: 'userNickname', label: '用户', width: 140 },
+      { prop: 'userNickname', label: '用户', width: 180, formatter: renderUserCell },
       { prop: 'content', label: '内容', minWidth: 240 },
       { prop: 'parentId', label: '父评论ID', width: 120 },
       { prop: 'childCount', label: '子数', width: 90 },
@@ -298,4 +339,17 @@ const handleDelete = async (row: CommentVO) => {
 <style scoped>
 .mb-3 { margin-bottom: 12px; }
 .border-b { border-bottom: 1px solid var(--el-border-color); }
+.comment-user-cell,
+.detail-user-row,
+.reply-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.comment-user-cell__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

@@ -153,14 +153,14 @@ export const scenicSpots: ScenicSpot[] = [
 export const venues: Venue[] = [
   {
     id: 301,
-    name: '城市博物馆',
+    name: '西藏文化博物馆',
     category: '博物馆',
     free: true,
     openTime: '09:00-17:00（周一闭馆）',
     address: '中心大道 1 号',
     phone: '0898-11112222',
     website: 'https://museum.example.com',
-    description: '展示城市历史、民俗与科技发展，设有青少年研学课程。',
+    description: '展示西藏历史、民俗与文化发展，设有青少年研学课程。',
     cover: 'https://images.unsplash.com/photo-1505663912202-ac22d3f1b4a4?auto=format&fit=crop&w=800&q=60'
   },
   {

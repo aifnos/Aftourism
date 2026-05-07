@@ -2,7 +2,7 @@
 <!-- art-full-height 自动计算出页面剩余高度 -->
 <!-- art-table-card 一个符合系统样式的 class，同时自动撑满剩余高度 -->
 <!-- 更多 useTable 使用示例请移步至 功能示例 下面的高级表格示例或者查看官方文档 -->
-<!-- useTable 文档：https://www.artd.pro/docs/zh/guide/hooks/use-table.html -->
+<!-- 使用后台通用表格 Hook 管理查询、分页和批量操作 -->
 <template>
   <div class="user-page art-full-height">
     <!-- 搜索栏 -->
@@ -50,7 +50,7 @@
   } from '@/api/system-manage'
   import UserSearch from './modules/user-search.vue'
   import UserDialog from './modules/user-dialog.vue'
-  import { ElTag, ElMessageBox, ElMessage } from 'element-plus'
+  import { ElAvatar, ElTag, ElMessageBox, ElMessage } from 'element-plus'
   import { DialogType } from '@/types'
 
   defineOptions({ name: 'AdminUser' })
@@ -88,6 +88,9 @@
     }
   }
 
+  const adminDisplayName = (row: UserListItem) => row.realName || row.username || '后台用户'
+  const avatarInitial = (name?: string) => name?.trim().slice(0, 1) || '管'
+
   const {
     columns,
     columnChecks,
@@ -120,6 +123,20 @@
       columnsFactory: () => [
         { type: 'selection' }, // 勾选列
         { type: 'index', width: 60, label: '序号' }, // 序号
+        {
+          prop: 'avatar',
+          label: '头像',
+          width: 86,
+          formatter: (row) =>
+            h(
+              ElAvatar,
+              {
+                size: 36,
+                src: row.avatar || undefined
+              },
+              () => avatarInitial(adminDisplayName(row))
+            )
+        },
         {
           prop: 'username',
           label: '登录账号',

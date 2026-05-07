@@ -31,6 +31,7 @@
         <result property="userId" column="user_id" />
         <result property="userName" column="user_name" />
         <result property="userNickname" column="user_nickname" />
+        <result property="userAvatar" column="user_avatar" />
         <result property="title" column="title" />
         <result property="content" column="content" />
         <result property="contactPhone" column="contact_phone" />
@@ -106,6 +107,7 @@
             f.user_id,
             u.username AS user_name,
             u.nickname AS user_nickname,
+            u.avatar AS user_avatar,
             f.title,
             f.content,
             f.contact_phone,
@@ -136,6 +138,7 @@
             f.user_id,
             u.username AS user_name,
             u.nickname AS user_nickname,
+            u.avatar AS user_avatar,
             f.title,
             f.content,
             f.contact_phone,

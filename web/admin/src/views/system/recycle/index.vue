@@ -23,7 +23,7 @@
         @pagination:current-change="handleCurrentChange"
       >
         <template #type="{ row }">
-          <ElTag type="info">{{ typeLabelMap[row.type] }}</ElTag>
+          <ElTag type="info">{{ getTypeLabel(row.type) }}</ElTag>
         </template>
 
         <template #operation="{ row }">
@@ -82,6 +82,8 @@ const typeLabelMap: Record<RecycleType, string> = {
   FEEDBACK: '留言反馈',
   FEEDBACK_COMMENT: '反馈评论'
 }
+
+const getTypeLabel = (type?: RecycleType) => (type ? typeLabelMap[type] || type : '-')
 
 // 搜索栏配置项
 const searchItems = computed(() => [

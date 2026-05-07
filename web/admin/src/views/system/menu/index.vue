@@ -76,7 +76,7 @@
   // 弹窗相关
   const dialogVisible = ref(false)
   const dialogType = ref<'menu' | 'button'>('menu')
-  type MenuEditData = AppRouteRecord | { title?: string; authMark?: string; sort?: number } | null
+  type MenuEditData = AppRouteRecord | { title?: string; authMark?: string; icon?: string; sort?: number } | null
   const editData = ref<MenuEditData>(null)
   const lockMenuType = ref(false)
   const activeMenuId = ref<number | null>(null)
@@ -482,7 +482,8 @@
           orderNum: formData.sort,
           status: formData.isEnable ? 1 : 0
         }
-        const menuId = editData.value?.id
+        const menuId =
+          editData.value && 'id' in editData.value ? editData.value.id : undefined
         if (menuId) {
           await fetchUpdateMenu(menuId, payload)
         } else {

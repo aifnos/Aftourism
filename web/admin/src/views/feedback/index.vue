@@ -31,8 +31,13 @@
         </div>
         <p class="mt-3 text-sm text-gray-800 line-clamp-4">{{ item.content }}</p>
         <div class="absolute bottom-4 left-0 px-4 flex-cb w-full text-xs text-g-600">
-          <span>{{ item.userNickname || item.userName || '匿名' }}</span>
-          <span>{{ item.title || '未填写标题' }}</span>
+          <div class="flex min-w-0 items-center gap-2">
+            <ElAvatar :size="24" :src="item.userAvatar || undefined">
+              {{ avatarInitial(feedbackUserName(item)) }}
+            </ElAvatar>
+            <span class="truncate">{{ feedbackUserName(item) }}</span>
+          </div>
+          <span class="ml-2 max-w-[50%] truncate">{{ item.title || '未填写标题' }}</span>
         </div>
       </li>
     </ul>
@@ -63,8 +68,13 @@
             <p class="text-g-500 text-sm">{{ formatTime(detail.createTime) }}</p>
             <p class="mt-4 text-sm text-gray-800">{{ detail.content }}</p>
             <div class="absolute bottom-4 left-0 px-4 flex-cb w-full text-xs text-g-600">
-              <span>{{ detail.userNickname || detail.userName || '匿名' }}</span>
-              <span>{{ detail.title || '未填写标题' }}</span>
+              <div class="flex min-w-0 items-center gap-2">
+                <ElAvatar :size="24" :src="detail.userAvatar || undefined">
+                  {{ avatarInitial(feedbackUserName(detail)) }}
+                </ElAvatar>
+                <span class="truncate">{{ feedbackUserName(detail) }}</span>
+              </div>
+              <span class="ml-2 max-w-[50%] truncate">{{ detail.title || '未填写标题' }}</span>
             </div>
           </div>
 
@@ -100,7 +110,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, nextTick } from 'vue'
-import { ElMessageBox, type FormInstance } from 'element-plus'
+import { ElAvatar, ElMessageBox, type FormInstance } from 'element-plus'
 import ArtSearchBar from '@/components/core/forms/art-search-bar/index.vue'
 import { useTable } from '@/hooks/core/useTable'
 import { fetchFeedbackPage, fetchFeedbackDetail, updateFeedback, deleteFeedback } from '@/api/feedback'
@@ -163,6 +173,10 @@ const feedbackCards = computed(() => {
 const formatTime = (time?: string) => (time ? new Date(time).toLocaleString() : '-')
 const statusText = (status?: number) => (status === 1 ? '已反馈' : '待反馈')
 const statusTagType = (status?: number) => (status === 1 ? 'success' : 'warning')
+const feedbackUserName = (item?: Pick<FeedbackItem, 'userNickname' | 'userName'> | null) => {
+  return item?.userNickname || item?.userName || '匿名'
+}
+const avatarInitial = (name?: string) => name?.trim().slice(0, 1) || '游'
 
 const handleSearch = async () => {
   await searchBarRef.value?.validate?.()

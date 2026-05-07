@@ -88,7 +88,13 @@ type NoticeItem = Api.Notice.NoticeItem
 
 const dialogType = ref<'add' | 'edit'>('add')
 const dialogVisible = ref(false)
-const current = reactive<Partial<NoticeItem>>({ title: '', content: '', author: '', status: 1, publishTime: '' })
+const current = reactive<Partial<NoticeItem> & { content: string }>({
+  title: '',
+  content: '',
+  author: '',
+  status: 1,
+  publishTime: ''
+})
 const formRef = ref<FormInstance>()
 
 const rules = reactive({

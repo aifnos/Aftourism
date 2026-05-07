@@ -13,9 +13,11 @@ public class ContentReportManageVO {
     private Long reporterId;
     private String reporterName;
     private String reporterNickname;
+    private String reporterAvatar;
     private Long targetUserId;
     private String targetUserName;
     private String targetUserNickname;
+    private String targetUserAvatar;
     private String targetType;
     private String targetTypeText;
     private Long targetId;

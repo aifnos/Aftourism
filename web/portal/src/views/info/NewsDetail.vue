@@ -41,7 +41,7 @@ onMounted(async () => {
   background: #fff;
   padding: 32px 44px;
   box-sizing: border-box;
-  border-radius: 18px;
+  border-radius: 8px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
 }
 
@@ -78,7 +78,7 @@ onMounted(async () => {
 
   .content-card {
     padding: 28px 30px;
-    border-radius: 14px;
+    border-radius: 8px;
   }
 }
 

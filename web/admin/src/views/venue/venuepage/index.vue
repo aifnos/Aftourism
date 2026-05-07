@@ -433,7 +433,10 @@ const showDialog = (type: 'add' | 'edit', row?: Venue) => {
 const handleDialogSubmit = async () => {
   await formRef.value?.validate?.()
   syncImageUrlValue()
-  const payload = { ...current }
+  const payload: Partial<Api.Venue.VenueDTO> = {
+    ...current,
+    isFree: current.isFree === 1 ? 1 : 0
+  }
   if (current.id) {
     await updateVenue(current.id, payload)
     dialogVisible.value = false

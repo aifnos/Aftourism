@@ -50,9 +50,12 @@ declare namespace Api {
 
     /** 分页响应基础结构 */
     interface PaginatedResponse<T = any> {
-      records: T[]
-      current: number
-      size: number
+      records?: T[]
+      list?: T[]
+      current?: number
+      size?: number
+      pageNum?: number
+      pageSize?: number
       total: number
     }
 
@@ -100,6 +103,7 @@ declare namespace Api {
       id: number
       username: string
       realName?: string
+      avatar?: string
       phone?: string
       email?: string
       status: number
@@ -154,6 +158,7 @@ declare namespace Api {
       id: number
       username: string
       nickname?: string
+      avatar?: string
       phone?: string
       email?: string
       status: number
@@ -194,10 +199,12 @@ declare namespace Api {
 
     /** 权限点定义 */
     interface PermissionDefinition {
-      key: string
+      key?: string
       resourceKey: string
       action: string
       description: string
+      groupKey?: string
+      groupLabel?: string
     }
 
     /** 角色权限项 */

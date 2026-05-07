@@ -129,9 +129,9 @@
   },
   "login": {
     "leftView": {
-      "name": "Aftourism-System",
-      "title": "Aftourism Cultural Tourism Management System",
-      "subTitle": "© 2025 Aftourism Cultural Tourism Service Management Platform · All Rights Reserved"
+      "name": "Aftourism Tibet Tourism Admin",
+      "title": "Aftourism Tibet Tourism Admin System",
+      "subTitle": "© 2026 Aftourism Tibet Tourism Service Management Platform · All Rights Reserved"
     },
     "title": "Welcome back",
     "subTitle": "Please enter your account and password to login",
@@ -226,40 +226,8 @@
       "title": "Dashboard",
       "console": "Console",
       "analysis": "Analysis",
-      "ecommerce": "Ecommerce"
-    },
-    "widgets": {
-      "title": "Components",
-      "icon": "Icon",
-      "imageCrop": "Image Crop",
-      "excel": "Excel Import Export",
-      "video": "Video Player",
-      "countTo": "Count To",
-      "wangEditor": "Wang Editor",
-      "watermark": "Watermark",
-      "contextMenu": "Context Menu",
-      "qrcode": "QR Code",
-      "drag": "Drag",
-      "textScroll": "Text Scroll",
-      "fireworks": "Fireworks",
-      "elementUI": "Component Overview"
-    },
-    "template": {
-      "title": "Template Center",
-      "chat": "Chat",
-      "cards": "Cards",
-      "banners": "Banners",
-      "charts": "Charts",
-      "map": "Map",
-      "calendar": "Calendar",
-      "pricing": "Pricing"
-    },
-    "article": {
-      "title": "Article",
-      "articleList": "Article List",
-      "articleDetail": "Article Detail",
-      "comment": "Comment",
-      "articlePublish": "Article Publish"
+      "scenicMap": "Scenic Map",
+      "venueMap": "Venue Map"
     },
     "feedback": {
       "title": "Feedback",
@@ -269,33 +237,6 @@
       "title": "Exchange",
       "articleManage": "Exchange Articles",
       "reportManage": "Reports"
-    },
-    "result": {
-      "title": "Result Page",
-      "success": "Success",
-      "fail": "Fail"
-    },
-    "exception": {
-      "title": "Exception",
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500"
-    },
-    "examples": {
-      "title": "Feature Examples",
-      "tabs": "Tabs",
-      "tablesBasic": "Basic Tables",
-      "tables": "Advanced Tables",
-      "tablesTree": "Tree Table Layout",
-      "forms": "Forms",
-      "searchBar": "Search Form",
-      "socketChat": "Socket Connection",
-      "permission": {
-        "title": "Frontend Permission",
-        "switchRole": "Toggle Auth",
-        "buttonAuth": "Button Authority",
-        "pageVisibility": "Super Admin Visibility"
-      }
     },
     "system": {
       "title": "System Settings",
@@ -308,29 +249,37 @@
       "homeConfig": "Home Config",
       "recycle": "Recycle Bin",
       "backendManage": "Backend Manage",
-      "menu": "Menu Manage",
-      "nested": "Nested Menu",
-      "menu1": "Menu 1",
-      "menu2": "Menu 2",
-      "menu21": "Menu 2-1",
-      "menu3": "Menu 3",
-      "menu31": "Menu 3-1",
-      "menu32": "Menu 3-2",
-      "menu321": "Menu 3-2-1"
+      "menu": "Menu Manage"
     },
     "safeguard": {
       "title": "Safeguard",
       "server": "Server"
     },
-    "plan": {
-      "title": "Version Plan",
-      "log": "Change Log"
-    },
     "help": {
       "title": "Help Center",
-      "document": "Document",
-      "liteVersion": "Lite Version",
       "oldVersion": "v2.6.1 Version"
+    },
+    "news": {
+      "title": "News Management",
+      "newspage": "News List"
+    },
+    "notice": {
+      "title": "Notice Management",
+      "noticepage": "Notice List"
+    },
+    "scenic": {
+      "title": "Scenic Spot Management",
+      "scenicpage": "Scenic Spot List"
+    },
+    "venue": {
+      "title": "Venue Management",
+      "venuepage": "Venue List"
+    },
+    "activity": {
+      "title": "Activity Management",
+      "activitypage": "Activity List",
+      "commentpage": "Activity Comments",
+      "auditpage": "Activity Review"
     }
   },
   "table": {

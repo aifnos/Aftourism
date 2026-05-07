@@ -130,7 +130,7 @@ const goBack = () => router.back();
   width: min(1200px, 100%);
   padding: 24px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
 }
 

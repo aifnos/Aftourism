@@ -1,8 +1,8 @@
 <template>
   <div class="nav-wrapper">
     <div class="brand" @click="goHome">
-      <span class="brand-title">Aftourism 文旅</span>
-      <small class="brand-desc">文旅资讯 · 全端适配</small>
+      <span class="brand-title">Aftourism 西藏文旅</span>
+      <small class="brand-desc">文旅资讯 · 服务门户</small>
     </div>
 
     <div class="menu-area" v-if="!isMobile">
@@ -68,8 +68,8 @@
               <span v-if="hasUnread" class="avatar-badge__notify"></span>
             </div>
             <div class="header-info">
-              <div class="brand-title">AfTourism</div>
-              <div class="brand-desc">随时随地畅享文旅</div>
+              <div class="brand-title">Aftourism 西藏文旅</div>
+              <div class="brand-desc">随时随地了解西藏文旅</div>
             </div>
           </div>
           <el-button link type="primary" @click="mobileMenuVisible = false">关闭</el-button>
@@ -110,11 +110,18 @@ const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 
+interface NavMenuItem {
+  index: string;
+  label: string;
+  children?: NavMenuItem[];
+}
+
 // 中文注释：导航菜单配置，统一管理菜单层级
-const mainMenus = [
+const mainMenus: NavMenuItem[] = [
   { index: '/', label: '首页' },
   { index: '/news', label: '资讯动态' },
   { index: '/activities', label: '特色活动' },
+  { index: '/map', label: '地图' },
   { index: '/scenic', label: 'A 级景区' },
   { index: '/venues', label: '场馆' },
   { index: '/exchange', label: '交流' },
@@ -130,6 +137,7 @@ const activePath = computed(() => {
   if (route.path.startsWith('/news') || route.path.startsWith('/notices')) return '/news';
   if (route.path.startsWith('/exchange')) return '/exchange';
   if (route.path.startsWith('/feedback')) return '/feedback';
+  if (route.path.startsWith('/map')) return '/map';
   return route.path;
 });
 const showBadge = computed(
@@ -213,14 +221,12 @@ const goApply = () => router.push('/activities/apply');
 .brand-title {
   font-size: 22px;
   font-weight: 700;
-  background: linear-gradient(120deg, #2c7be5, #2563eb);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: -0.5px;
+  color: var(--primary-color);
+  letter-spacing: 0;
 }
 
 .brand-desc {
-  color: #64748b;
+  color: var(--muted-text-color);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 1px;
@@ -238,7 +244,7 @@ const goApply = () => router.push('/activities/apply');
 .menu-area :deep(.el-menu-item) {
   font-size: 16px;
   font-weight: 500;
-  color: #4b5563;
+  color: var(--muted-text-color);
   padding: 0 20px;
   height: 72px;
   line-height: 72px;
@@ -247,13 +253,13 @@ const goApply = () => router.push('/activities/apply');
 }
 
 .menu-area :deep(.el-menu-item:hover) {
-  color: #2c7be5;
+  color: var(--primary-color);
   background: rgba(44, 123, 229, 0.04);
 }
 
 .menu-area :deep(.el-menu-item.is-active) {
-  color: #2c7be5;
-  border-bottom-color: #2c7be5;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
   font-weight: 600;
   background: transparent;
 }
@@ -390,6 +396,6 @@ const goApply = () => router.push('/activities/apply');
 .username {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
 }
 </style>

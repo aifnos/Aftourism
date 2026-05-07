@@ -477,7 +477,7 @@ const getTypeName = (type: string) => {
   }
 };
 
-const formatTime = (time: string) => time?.split('T')[0] || '';
+const formatTime = (time?: string) => time?.split('T')[0] || '';
 </script>
 
 <style scoped lang="scss">
@@ -507,7 +507,7 @@ const formatTime = (time: string) => time?.split('T')[0] || '';
 
 .user-card {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 32px 24px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
@@ -571,7 +571,7 @@ const formatTime = (time: string) => time?.split('T')[0] || '';
 
 .status-card {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
@@ -597,7 +597,7 @@ const formatTime = (time: string) => time?.split('T')[0] || '';
 /* Content Area */
 .content-card {
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 8px 32px 32px; /* Top padding reduced as tabs have margin */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   min-height: 500px;
@@ -668,7 +668,7 @@ const formatTime = (time: string) => time?.split('T')[0] || '';
 }
 
 .grid-item {
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   border: 1px solid #e2e8f0;
   cursor: pointer;
@@ -727,7 +727,7 @@ const formatTime = (time: string) => time?.split('T')[0] || '';
   gap: 16px;
   padding: 16px;
   border: 1px solid #f1f5f9;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
   
@@ -841,7 +841,7 @@ const formatTime = (time: string) => time?.split('T')[0] || '';
   
   .content-card {
     padding: 0 16px 24px;
-    border-radius: 12px;
+    border-radius: 8px;
   }
   
   .post-item {

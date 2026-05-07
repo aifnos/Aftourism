@@ -12,7 +12,7 @@
       </ElCol>
       <ElCol :lg="8" :md="8" :sm="12" :xs="8">
         <ElSelect v-model="statusVal" clearable placeholder="筛选状态" @change="handleSearch">
-          <ElOption :value="null" label="全部" />
+          <ElOption :value="-1" label="全部" />
           <ElOption :value="0" label="待审核" />
           <ElOption :value="1" label="已发布" />
           <ElOption :value="2" label="已驳回" />
@@ -50,7 +50,12 @@
           </div>
           <div class="px-3 py-2">
             <h2 class="text-base text-g-800 font-medium line-clamp-1">{{ item.title }}</h2>
-            <div class="mt-1 text-sm text-g-500">作者：{{ item.userNickname || item.userName || '未知用户' }}</div>
+            <div class="mt-1 flex items-center gap-2 text-sm text-g-500">
+              <ElAvatar :size="24" :src="item.userAvatar || undefined">
+                {{ avatarInitial(articleUserName(item)) }}
+              </ElAvatar>
+              <span class="min-w-0 truncate">作者：{{ articleUserName(item) }}</span>
+            </div>
             <div class="flex-b w-full h-7 mt-2 text-sm text-g-500">
               <div class="flex items-center gap-3">
                 <span>👍 {{ item.likeCount || 0 }}</span>
@@ -95,8 +100,11 @@
           <div class="flex flex-wrap items-center justify-between gap-3 text-sm text-g-600">
             <div>
               <div class="text-base text-g-800 font-semibold">{{ detailArticle.title }}</div>
-              <div class="mt-1">
-                作者：{{ detailArticle.userNickname || detailArticle.userName || '未知用户' }}
+              <div class="mt-1 flex items-center gap-2">
+                <ElAvatar :size="28" :src="detailArticle.userAvatar || undefined">
+                  {{ avatarInitial(articleUserName(detailArticle)) }}
+                </ElAvatar>
+                <span>作者：{{ articleUserName(detailArticle) }}</span>
               </div>
             </div>
             <ElTag size="small" :type="statusTagType(detailArticle.status)">
@@ -124,9 +132,13 @@
                 class="rounded-lg border border-g-200/70 p-4"
               >
                 <div class="flex items-start justify-between gap-4">
-                  <div class="flex-1">
+                  <div class="flex min-w-0 flex-1 items-start gap-3">
+                    <ElAvatar :size="36" :src="comment.userAvatar || undefined">
+                      {{ avatarInitial(commentUserName(comment)) }}
+                    </ElAvatar>
+                    <div class="min-w-0 flex-1">
                     <div class="text-sm text-g-800">
-                      <span class="font-medium">{{ comment.userNickname || '未知用户' }}</span>
+                      <span class="font-medium">{{ commentUserName(comment) }}</span>
                       <span v-if="comment.mentionUserNickname" class="ml-2 text-g-500">
                         回复 @{{ comment.mentionUserNickname }}
                       </span>
@@ -136,6 +148,7 @@
                     </div>
                     <div class="mt-2 text-xs text-g-400">
                       {{ useDateFormat(comment.createTime, 'YYYY-MM-DD HH:mm') }}
+                    </div>
                     </div>
                   </div>
                   <div class="flex items-center gap-2">
@@ -149,9 +162,13 @@
                 >
                   <div v-for="child in comment.children" :key="child.id" class="rounded-md bg-g-100/60 p-3">
                     <div class="flex items-start justify-between gap-4">
-                      <div class="flex-1">
+                      <div class="flex min-w-0 flex-1 items-start gap-3">
+                        <ElAvatar :size="32" :src="child.userAvatar || undefined">
+                          {{ avatarInitial(commentUserName(child)) }}
+                        </ElAvatar>
+                        <div class="min-w-0 flex-1">
                         <div class="text-sm text-g-800">
-                          <span class="font-medium">{{ child.userNickname || '未知用户' }}</span>
+                          <span class="font-medium">{{ commentUserName(child) }}</span>
                           <span v-if="child.mentionUserNickname" class="ml-2 text-g-500">
                             回复 @{{ child.mentionUserNickname }}
                           </span>
@@ -161,6 +178,7 @@
                         </div>
                         <div class="mt-2 text-xs text-g-400">
                           {{ useDateFormat(child.createTime, 'YYYY-MM-DD HH:mm') }}
+                        </div>
                         </div>
                       </div>
                       <div class="flex items-center gap-2">
@@ -198,7 +216,13 @@
       <template v-if="currentArticle">
         <div class="mb-4 text-sm text-g-600">
           <div>标题：{{ currentArticle.title }}</div>
-          <div>作者：{{ currentArticle.userNickname || currentArticle.userName || '未知用户' }}</div>
+          <div class="mt-2 flex items-center gap-2">
+            <span>作者：</span>
+            <ElAvatar :size="28" :src="currentArticle.userAvatar || undefined">
+              {{ avatarInitial(articleUserName(currentArticle)) }}
+            </ElAvatar>
+            <span>{{ articleUserName(currentArticle) }}</span>
+          </div>
         </div>
         <div class="mb-4 rounded-lg border border-g-200 bg-g-50/40 p-3 text-sm text-g-600">
           <div v-if="currentArticle.content" class="max-h-48 overflow-auto" v-html="currentArticle.content"></div>
@@ -241,7 +265,7 @@
   import { useDateFormat } from '@vueuse/core'
   import { computed, reactive, ref, onMounted, watch } from 'vue'
   import { useRoute } from 'vue-router'
-  import { ElMessage, ElMessageBox, type FormInstance } from 'element-plus'
+  import { ElAvatar, ElMessage, ElMessageBox, type FormInstance } from 'element-plus'
   import { useTable } from '@/hooks/core/useTable'
   import {
     fetchExchangeArticleDetail,
@@ -257,7 +281,7 @@
   type ExchangeArticleItem = Api.Exchange.ExchangeArticleItem
 
   const searchVal = ref('')
-  const statusVal = ref<number | null>(null)
+  const statusVal = ref<number>(-1)
   const route = useRoute()
 
   const { data, loading, pagination, getData, searchParams, handleCurrentChange } = useTable({
@@ -290,10 +314,20 @@
     return 'warning'
   }
 
+  const articleUserName = (item?: Pick<ExchangeArticleItem, 'userNickname' | 'userName'> | null) => {
+    return item?.userNickname || item?.userName || '未知用户'
+  }
+
+  const commentUserName = (item?: Api.Exchange.ExchangeCommentItem | null) => {
+    return item?.userNickname || (item?.userId ? `用户${item.userId}` : '未知用户')
+  }
+
+  const avatarInitial = (name?: string) => name?.trim().slice(0, 1) || '游'
+
   const handleSearch = () => {
     Object.assign(searchParams, {
       current: 1,
-      status: statusVal.value ?? undefined,
+      status: statusVal.value === -1 ? undefined : statusVal.value,
       keyword: searchVal.value || undefined
     })
     getData()
@@ -301,7 +335,7 @@
 
   const handleReset = () => {
     searchVal.value = ''
-    statusVal.value = null
+    statusVal.value = -1
     Object.assign(searchParams, { current: 1, status: undefined, keyword: undefined })
     getData()
   }

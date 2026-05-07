@@ -181,7 +181,7 @@
    */
   const defaultProps = {
     children: 'children',
-    label: (data: PermissionNode) => data.label || ''
+    label: (data: any) => data.label || ''
   }
 
   /**

@@ -14,6 +14,7 @@ public class AdminAccountVO {
     private Long id;
     private String username;
     private String realName;
+    private String avatar;
     private String phone;
     private String email;
     private Integer status;

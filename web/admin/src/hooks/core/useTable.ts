@@ -39,7 +39,22 @@ import { tableConfig } from '../../utils/table/tableConfig'
 // 类型推导工具类型
 type InferApiParams<T> = T extends (params: infer P) => any ? P : never
 type InferApiResponse<T> = T extends (params: any) => Promise<infer R> ? R : never
-type InferRecordType<T> = T extends Api.Common.PaginatedResponse<infer U> ? U : never
+type InferRecordType<T> =
+  T extends Api.Common.PaginatedResponse<infer U>
+    ? U
+    : T extends { records?: (infer U)[] }
+      ? U
+      : T extends { list?: (infer U)[] }
+        ? U
+        : T extends { data?: { records?: (infer U)[] } }
+          ? U
+          : T extends { data?: { list?: (infer U)[] } }
+            ? U
+            : T extends (infer U)[]
+              ? U
+              : T extends ApiResponse<infer U>
+                ? U
+                : Record<string, unknown>
 
 // 优化的配置接口 - 支持自动类型推导
 export interface UseTableConfig<

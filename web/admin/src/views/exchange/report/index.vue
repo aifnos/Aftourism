@@ -20,12 +20,22 @@
       <ElTableColumn prop="targetTypeText" label="举报类型" min-width="120" />
       <ElTableColumn label="举报用户" min-width="160">
         <template #default="{ row }">
-          <span>{{ row.reporterNickname || row.reporterName || '未知用户' }}</span>
+          <div class="flex min-w-0 items-center gap-2">
+            <ElAvatar :size="28" :src="row.reporterAvatar || undefined">
+              {{ avatarInitial(reporterName(row)) }}
+            </ElAvatar>
+            <span class="truncate">{{ reporterName(row) }}</span>
+          </div>
         </template>
       </ElTableColumn>
       <ElTableColumn label="被举报用户" min-width="160">
         <template #default="{ row }">
-          <span>{{ row.targetUserNickname || row.targetUserName || '未知用户' }}</span>
+          <div class="flex min-w-0 items-center gap-2">
+            <ElAvatar :size="28" :src="row.targetUserAvatar || undefined">
+              {{ avatarInitial(targetUserName(row)) }}
+            </ElAvatar>
+            <span class="truncate">{{ targetUserName(row) }}</span>
+          </div>
         </template>
       </ElTableColumn>
       <ElTableColumn prop="reasonTypeText" label="原因" min-width="140" />
@@ -61,8 +71,20 @@
           <div>举报类型：{{ currentReport.targetTypeText || currentReport.targetType }}</div>
           <div>举报原因：{{ currentReport.reasonTypeText || currentReport.reasonType }}</div>
           <div>原因描述：{{ currentReport.reason || '无' }}</div>
-          <div>举报人：{{ currentReport.reporterNickname || currentReport.reporterName || '未知用户' }}</div>
-          <div>被举报人：{{ currentReport.targetUserNickname || currentReport.targetUserName || '未知用户' }}</div>
+          <div class="flex items-center gap-2">
+            <span>举报人：</span>
+            <ElAvatar :size="30" :src="currentReport.reporterAvatar || undefined">
+              {{ avatarInitial(reporterName(currentReport)) }}
+            </ElAvatar>
+            <span>{{ reporterName(currentReport) }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span>被举报人：</span>
+            <ElAvatar :size="30" :src="currentReport.targetUserAvatar || undefined">
+              {{ avatarInitial(targetUserName(currentReport)) }}
+            </ElAvatar>
+            <span>{{ targetUserName(currentReport) }}</span>
+          </div>
           <div class="flex flex-col gap-2" v-if="screenshotList.length">
             <span>截图证据：</span>
             <div class="grid grid-cols-2 gap-2">
@@ -104,6 +126,7 @@
 <script setup lang="ts">
   import { computed, reactive, ref, watch } from 'vue'
   import { useRoute } from 'vue-router'
+  import { ElAvatar } from 'element-plus'
   import ArtSearchBar from '@/components/core/forms/art-search-bar/index.vue'
   import { useTable } from '@/hooks/core/useTable'
   import { fetchExchangeReportPage, updateExchangeReport } from '@/api/exchange'
@@ -179,6 +202,16 @@
     if (status === 2) return 'info'
     return 'warning'
   }
+
+  const reporterName = (item?: Pick<ExchangeReportItem, 'reporterNickname' | 'reporterName'> | null) => {
+    return item?.reporterNickname || item?.reporterName || '未知用户'
+  }
+
+  const targetUserName = (item?: Pick<ExchangeReportItem, 'targetUserNickname' | 'targetUserName'> | null) => {
+    return item?.targetUserNickname || item?.targetUserName || '未知用户'
+  }
+
+  const avatarInitial = (name?: string) => name?.trim().slice(0, 1) || '游'
 
   const handleSearch = async () => {
     await searchBarRef.value?.validate?.()

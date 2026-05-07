@@ -127,9 +127,9 @@
   },
   "login": {
     "leftView": {
-      "name": "Aftourism-后台",
-      "title": "Aftourism文旅后台系统",
-      "subTitle": "© 2025 Aftourism 文旅服务管理平台 · All Rights Reserved"
+      "name": "Aftourism 西藏文旅后台",
+      "title": "Aftourism 西藏文旅后台系统",
+      "subTitle": "© 2026 Aftourism 西藏文旅服务管理平台 · All Rights Reserved"
     },
     "title": "欢迎回来",
     "subTitle": "输入您的账号和密码登录",
@@ -224,42 +224,8 @@
       "title": "仪表盘",
       "console": "工作台",
       "analysis": "分析页",
-      "ecommerce": "电子商务",
       "scenicMap": "景点地图",
       "venueMap": "场馆地图"
-    },
-    "widgets": {
-      "title": "组件中心",
-      "icon": "图标",
-      "imageCrop": "图像裁剪",
-      "excel": "Excel 导入导出",
-      "video": "视频播放器",
-      "countTo": "数字滚动",
-      "wangEditor": "富文本编辑器",
-      "watermark": "水印",
-      "contextMenu": "右键菜单",
-      "qrcode": "二维码",
-      "drag": "拖拽",
-      "textScroll": "文字滚动",
-      "fireworks": "礼花",
-      "elementUI": "组件总览"
-    },
-    "template": {
-      "title": "模板中心",
-      "chat": "聊天",
-      "cards": "卡片",
-      "banners": "横幅",
-      "charts": "图表",
-      "map": "地图",
-      "calendar": "日历",
-      "pricing": "定价"
-    },
-    "article": {
-      "title": "文章管理",
-      "articleList": "文章列表",
-      "articleDetail": "文章详情",
-      "comment": "留言管理",
-      "articlePublish": "文章发布"
     },
     "feedback": {
       "title": "留言反馈",
@@ -269,33 +235,6 @@
       "title": "交流管理",
       "articleManage": "交流文章管理",
       "reportManage": "举报管理"
-    },
-    "result": {
-      "title": "结果页面",
-      "success": "成功页",
-      "fail": "失败页"
-    },
-    "exception": {
-      "title": "异常页面",
-      "forbidden": "403",
-      "notFound": "404",
-      "serverError": "500"
-    },
-    "examples": {
-      "title": "功能示例",
-      "tabs": "标签页",
-      "tablesBasic": "基础表格",
-      "tables": "高级表格",
-      "tablesTree": "左右布局表格",
-      "forms": "表单",
-      "searchBar": "搜索表单",
-      "socketChat": "Socket 连接",
-      "permission": {
-        "title": "前端权限",
-        "switchRole": "切换权限",
-        "buttonAuth": "按钮权限演示",
-        "pageVisibility": "超级管理员可见"
-      }
     },
     "system": {
       "title": "系统管理",
@@ -308,28 +247,14 @@
       "homeConfig": "首页配置",
       "recycle": "回收站",
       "backendManage": "后台管理",
-      "menu": "菜单管理",
-      "nested": "嵌套菜单",
-      "menu1": "菜单1",
-      "menu2": "菜单2",
-      "menu21": "菜单2-1",
-      "menu3": "菜单3",
-      "menu31": "菜单3-1",
-      "menu32": "菜单3-2",
-      "menu321": "菜单3-2-1"
+      "menu": "菜单管理"
     },
     "safeguard": {
       "title": "运维管理",
       "server": "服务器管理"
     },
-    "plan": {
-      "title": "版本计划",
-      "log": "更新日志"
-    },
     "help": {
       "title": "帮助中心",
-      "document": "官方文档",
-      "liteVersion": "精简版本",
       "oldVersion": "v2.6.1 版本"
     },
     "news": {

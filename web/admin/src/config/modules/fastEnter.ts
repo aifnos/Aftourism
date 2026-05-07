@@ -1,8 +1,7 @@
 /**
  * 快速入口配置
- * 包含：应用列表、快速链接等配置
+ * 包含当前后台实际业务页面的常用入口。
  */
-import { WEB_LINKS } from '@/utils/constants'
 import type { FastEnterConfig } from '@/types/config'
 
 const fastEnterConfig: FastEnterConfig = {
@@ -22,104 +21,116 @@ const fastEnterConfig: FastEnterConfig = {
     {
       name: '分析页',
       description: '数据分析与可视化',
-      icon: 'ri:game-line',
+      icon: 'ri:line-chart-line',
       iconColor: '#ff3b30',
       enabled: true,
       order: 2,
       routeName: 'Analysis'
     },
     {
-      name: '礼花效果',
-      description: '动画特效展示',
-      icon: 'ri:loader-line',
-      iconColor: '#7A7FFF',
-      enabled: true,
-      order: 3,
-      routeName: 'Fireworks'
-    },
-    {
-      name: '聊天',
-      description: '即时通讯功能',
-      icon: 'ri:user-line',
-      iconColor: '#13DEB9',
-      enabled: true,
-      order: 4,
-      routeName: 'Chat'
-    },
-    {
-      name: '官方文档',
-      description: '使用指南与开发文档',
-      icon: 'ri:bill-line',
+      name: '新闻管理',
+      description: '新闻内容发布与维护',
+      icon: 'ri:newspaper-line',
       iconColor: '#ffb100',
       enabled: true,
-      order: 5,
-      link: WEB_LINKS.DOCS
+      order: 3,
+      routeName: 'NewsPage'
     },
     {
-      name: '技术支持',
-      description: '技术支持与问题反馈',
-      icon: 'ri:user-location-line',
-      iconColor: '#ff6b6b',
+      name: '通知公告',
+      description: '公告信息发布与管理',
+      icon: 'ri:notification-3-line',
+      iconColor: '#7A7FFF',
       enabled: true,
-      order: 6,
-      link: WEB_LINKS.COMMUNITY
+      order: 4,
+      routeName: 'NoticePage'
     },
     {
-      name: '更新日志',
-      description: '版本更新与变更记录',
-      icon: 'ri:gamepad-line',
+      name: '景点管理',
+      description: '景点资料与展示维护',
+      icon: 'ri:map-pin-line',
+      iconColor: '#13DEB9',
+      enabled: true,
+      order: 5,
+      routeName: 'ScenicPage'
+    },
+    {
+      name: '场馆管理',
+      description: '场馆信息与票务维护',
+      icon: 'ri:building-2-line',
       iconColor: '#38C0FC',
       enabled: true,
-      order: 7,
-      routeName: 'ChangeLog'
+      order: 6,
+      routeName: 'VenuePage'
     },
     {
-      name: '哔哩哔哩',
-      description: '技术分享与交流',
-      icon: 'ri:bilibili-line',
+      name: '活动管理',
+      description: '活动发布与报名管理',
+      icon: 'ri:calendar-event-line',
+      iconColor: '#ff6b6b',
+      enabled: true,
+      order: 7,
+      routeName: 'ActivityPage'
+    },
+    {
+      name: '活动审核',
+      description: '活动报名与发布审核',
+      icon: 'ri:shield-check-line',
       iconColor: '#FB7299',
       enabled: true,
       order: 8,
-      link: WEB_LINKS.BILIBILI
+      routeName: 'ActivityAuditPage'
     }
   ],
   // 快速链接
   quickLinks: [
     {
-      name: '登录',
+      name: '前台用户',
       enabled: true,
       order: 1,
-      routeName: 'Login'
+      routeName: 'PortalUser'
     },
     {
-      name: '注册',
+      name: '资质审核',
       enabled: true,
       order: 2,
-      routeName: 'Register'
+      routeName: 'QualificationAudit'
     },
     {
-      name: '忘记密码',
+      name: '首页配置',
       enabled: true,
       order: 3,
-      routeName: 'ForgetPassword'
+      routeName: 'HomeConfig'
     },
     {
-      name: '定价',
+      name: '留言反馈',
       enabled: true,
       order: 4,
-      routeName: 'Pricing'
+      routeName: 'FeedbackManage'
     },
     {
-      name: '个人中心',
+      name: '交流文章',
       enabled: true,
       order: 5,
-      routeName: 'UserCenter'
+      routeName: 'ExchangeArticleManage'
     },
     {
-      name: '留言管理',
+      name: '举报管理',
       enabled: true,
       order: 6,
-      routeName: 'ArticleComment'
+      routeName: 'ExchangeReportManage'
+    },
+    {
+      name: '菜单管理',
+      enabled: true,
+      order: 7,
+      routeName: 'Menus'
+    },
+    {
+      name: '回收站',
+      enabled: true,
+      order: 8,
+      routeName: 'RecycleBin'
     }
   ]
 }

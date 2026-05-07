@@ -2,8 +2,8 @@
   <div class="art-card p-5 flex-b mb-5 max-sm:mb-4">
     <div>
       <h2 class="text-2xl font-medium">关于项目</h2>
-      <p class="text-g-700 mt-1">{{ systemName }} 是一款兼具设计美学与高效开发的后台系统</p>
-      <p class="text-g-700 mt-1">使用了 Vue3、TypeScript、Vite、Element Plus 等前沿技术</p>
+      <p class="text-g-700 mt-1">{{ systemName }} 是面向西藏文旅运营的综合管理后台</p>
+      <p class="text-g-700 mt-1">覆盖内容发布、景区场馆、活动审核、用户服务与运行监控</p>
 
       <div class="flex flex-wrap gap-3.5 max-w-150 mt-9">
         <div
@@ -23,15 +23,14 @@
 
 <script setup lang="ts">
   import AppConfig from '@/config'
-  import { WEB_LINKS } from '@/utils/constants'
 
   const systemName = AppConfig.systemInfo.name
 
   const linkList = [
-    { label: '项目官网', url: WEB_LINKS.DOCS },
-    { label: '文档', url: WEB_LINKS.INTRODUCE },
-    { label: 'Github', url: WEB_LINKS.GITHUB_HOME },
-    { label: '哔哩哔哩', url: WEB_LINKS.BILIBILI }
+    { label: '工作台', url: '/dashboard/console' },
+    { label: '新闻管理', url: '/news/newspage' },
+    { label: '活动管理', url: '/activity/activitypage' },
+    { label: '系统设置', url: '/system/home-config' }
   ]
 
   /**
@@ -39,6 +38,6 @@
    * @param url 要打开的网页地址
    */
   const goPage = (url: string): void => {
-    window.open(url, '_blank', 'noopener,noreferrer')
+    window.location.href = url
   }
 </script>

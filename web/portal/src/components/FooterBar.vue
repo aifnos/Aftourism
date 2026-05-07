@@ -2,46 +2,45 @@
   <div class="footer-wrapper">
     <div class="footer-container">
       <div class="footer-left">
-        <h3 class="footer-title">Aftourism</h3>
+        <h3 class="footer-title">Aftourism 西藏文旅</h3>
         <p class="footer-desc">
-          专注于为您提供全方位的文旅资讯服务。无论是热门景区、特色场馆，还是精彩活动，这里都有您想要的一切。
+          汇聚西藏热门景区、公共文化场馆、特色活动与游客交流内容，为出行规划、活动报名和文旅服务反馈提供统一入口。
         </p>
         <div class="social-links">
-          <!-- 示例社交图标 -->
-          <el-icon :size="24" title="微信公众号"><ChatDotRound /></el-icon>
-          <el-icon :size="24" title="官方微博"><Share /></el-icon>
-          <el-icon :size="24" title="抖音号"><Camera /></el-icon>
+          <el-icon :size="24" title="在线咨询"><ChatDotRound /></el-icon>
+          <el-icon :size="24" title="服务分享"><Share /></el-icon>
+          <el-icon :size="24" title="影像活动"><Camera /></el-icon>
         </div>
       </div>
 
       <div class="footer-links">
         <div class="link-column">
-          <h4>关于我们</h4>
-          <a href="javascript:;">平台简介</a>
-          <a href="javascript:;">加入我们</a>
-          <a href="javascript:;">联系方式</a>
+          <h4>文旅入口</h4>
+          <router-link to="/scenic">A级景区</router-link>
+          <router-link to="/venues">文化场馆</router-link>
+          <router-link to="/activities">特色活动</router-link>
         </div>
         <div class="link-column">
-          <h4>帮助中心</h4>
-          <a href="javascript:;">用户指南</a>
-          <a href="javascript:;">常见问题</a>
+          <h4>用户服务</h4>
+          <router-link to="/news">文旅资讯</router-link>
+          <router-link to="/exchange">交流社区</router-link>
           <router-link to="/feedback">意见反馈</router-link>
         </div>
         <div class="link-column">
-          <h4>法律条款</h4>
-          <a href="javascript:;">隐私政策</a>
-          <a href="javascript:;">服务协议</a>
-          <a href="javascript:;">免责声明</a>
+          <h4>联系我们</h4>
+          <span class="info-line">服务电话：0891-6601000</span>
+          <span class="info-line">服务邮箱：service@aftourism.cn</span>
+          <span class="info-line">服务时间：09:00-18:00</span>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
       <div class="copyright">
-        © 2026 Aftourism 文旅服务管理平台 · All Rights Reserved
+        © 2026 Aftourism 西藏文旅 · All Rights Reserved
       </div>
       <div class="beian">
-        <a href="https://beian.miit.gov.cn/" target="_blank">渝ICP备6666688888号</a>
+        西藏文旅综合服务平台
       </div>
     </div>
   </div>
@@ -129,6 +128,13 @@ import { ChatDotRound, Camera, Share } from '@element-plus/icons-vue';
 
 .link-column a:hover {
   color: #fff;
+}
+
+.info-line {
+  display: block;
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 10px;
 }
 
 .footer-bottom {

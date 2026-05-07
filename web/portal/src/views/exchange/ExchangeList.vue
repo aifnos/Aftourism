@@ -155,7 +155,7 @@ onMounted(loadList);
   width: min(1200px, 100%);
   padding: 24px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
 }
 
@@ -212,7 +212,7 @@ onMounted(loadList);
 .post-card {
   background: #fff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 16px;
   cursor: pointer;
   transition: all 0.3s ease;

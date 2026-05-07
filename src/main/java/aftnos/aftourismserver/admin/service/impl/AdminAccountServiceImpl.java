@@ -133,6 +133,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
         vo.setId(admin.getId());
         vo.setUsername(admin.getUsername());
         vo.setRealName(admin.getRealName());
+        vo.setAvatar(admin.getAvatar());
         vo.setPhone(admin.getPhone());
         vo.setEmail(admin.getEmail());
         vo.setStatus(admin.getStatus());

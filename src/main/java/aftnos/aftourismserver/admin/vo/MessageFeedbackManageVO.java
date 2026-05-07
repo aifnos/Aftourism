@@ -13,6 +13,7 @@ public class MessageFeedbackManageVO {
     private Long userId;
     private String userName;
     private String userNickname;
+    private String userAvatar;
     private String title;
     private String content;
     private String contactPhone;

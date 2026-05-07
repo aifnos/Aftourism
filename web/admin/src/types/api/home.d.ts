@@ -47,7 +47,7 @@ declare namespace Api {
       coverType?: 'IMAGE' | 'VIDEO'
       scenicLimit?: number
       banners: Array<Pick<BannerItem, 'title' | 'imageUrl' | 'linkUrl' | 'sort' | 'enabled'>>
-      scenics?: Array<Pick<ScenicItem, 'scenicId' | 'sort' | 'enabled'>>
+      scenics?: Array<Pick<ScenicItem, 'scenicId' | 'scenicName' | 'imageUrl' | 'sort' | 'enabled'>>
     }
   }
 }

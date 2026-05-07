@@ -134,7 +134,7 @@ watch(() => userStore.isLogin, (val) => {
   background: #fff;
   padding: 40px 48px;
   box-sizing: border-box;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   min-height: 600px;
 }
@@ -149,7 +149,7 @@ watch(() => userStore.isLogin, (val) => {
 .favorite-item {
   background: #fff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;

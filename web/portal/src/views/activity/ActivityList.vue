@@ -136,7 +136,7 @@ const isFavorite = (id: number) => userStore.favorites.activity.includes(id);
   background: #fff;
   padding: 40px 48px;
   box-sizing: border-box;
-  border-radius: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 
@@ -155,7 +155,7 @@ const isFavorite = (id: number) => userStore.favorites.activity.includes(id);
 
 .el-card {
   height: 100%;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid #ebeef5;
   transition: all 0.3s ease;
 }

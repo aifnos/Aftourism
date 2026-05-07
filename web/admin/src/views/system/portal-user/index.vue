@@ -43,7 +43,7 @@
   import { fetchGetPortalUserPage } from '@/api/system-manage'
   import PortalUserSearch from './modules/portal-user-search.vue'
   import PortalUserDialog from './modules/portal-user-dialog.vue'
-  import { ElTag } from 'element-plus'
+  import { ElAvatar, ElTag } from 'element-plus'
   import { h } from 'vue'
 
   defineOptions({ name: 'PortalUser' })
@@ -80,6 +80,9 @@
     }
   }
 
+  const userDisplayName = (row: PortalUserItem) => row.nickname || row.username || '用户'
+  const avatarInitial = (name?: string) => name?.trim().slice(0, 1) || '游'
+
   const {
     columns,
     columnChecks,
@@ -105,6 +108,20 @@
       columnsFactory: () => [
         { type: 'selection' },
         { type: 'index', width: 60, label: '序号' },
+        {
+          prop: 'avatar',
+          label: '头像',
+          width: 86,
+          formatter: (row) =>
+            h(
+              ElAvatar,
+              {
+                size: 36,
+                src: row.avatar || undefined
+              },
+              () => avatarInitial(userDisplayName(row))
+            )
+        },
         {
           prop: 'username',
           label: '账号',

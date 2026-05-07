@@ -119,16 +119,6 @@
           <div class="absolute top-2 right-2 size-1.5 !bg-danger rounded-full"></div>
         </ArtIconButton>
 
-        <!-- 聊天按钮 -->
-        <ArtIconButton
-          v-if="shouldShowChat"
-          icon="ri:message-3-line"
-          class="chat-button relative"
-          @click="openChat"
-        >
-          <div class="breathing-dot absolute top-2 right-2 size-1.5 !bg-success rounded-full"></div>
-        </ArtIconButton>
-
         <!-- 设置按钮 -->
         <div v-if="shouldShowSettings">
           <ElPopover :visible="showSettingGuide" placement="bottom-start" :width="190" :offset="0">
@@ -206,7 +196,6 @@
     shouldShowGlobalSearch,
     shouldShowFullscreen,
     shouldShowNotification,
-    shouldShowChat,
     shouldShowLanguage,
     shouldShowSettings,
     shouldShowThemeToggle,
@@ -335,12 +324,6 @@
     showNotice.value = !showNotice.value
   }
 
-  /**
-   * 打开聊天窗口
-   */
-  const openChat = (): void => {
-    mittBus.emit('openChat')
-  }
 </script>
 
 <style lang="scss" scoped>
@@ -419,23 +402,6 @@
     }
   }
 
-  @keyframes breathing {
-    0% {
-      opacity: 0.4;
-      transform: scale(0.9);
-    }
-
-    50% {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-
-    100% {
-      opacity: 0.4;
-      transform: scale(0.9);
-    }
-  }
-
   /* Hover animation classes */
   .refresh-btn:hover :deep(.art-svg-icon) {
     animation: rotate180 0.5s;
@@ -459,15 +425,6 @@
 
   .notice-button:hover :deep(.art-svg-icon) {
     animation: shake 0.5s ease-in-out;
-  }
-
-  .chat-button:hover :deep(.art-svg-icon) {
-    animation: shake 0.5s ease-in-out;
-  }
-
-  /* Breathing animation for chat dot */
-  .breathing-dot {
-    animation: breathing 1.5s ease-in-out infinite;
   }
 
   /* iPad breakpoint adjustments */

@@ -137,7 +137,7 @@ watch(keyword, () => {
 onMounted(loadList);
 
 const goDetail = (id: number) => router.push(`/venues/${id}`);
-const goMap = () => router.push('/venues/map');
+const goMap = () => router.push('/map?type=venue');
 const toggleFavorite = async (id: number) => {
   if (!userStore.isLogin) {
     ElMessage.warning('请先登录后再收藏');

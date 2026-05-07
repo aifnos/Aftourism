@@ -1,9 +1,6 @@
 <template>
-  <div class="layout">
+  <div class="layout" :class="{ 'map-layout': $route.meta.fullscreenMap }">
     <NProgressBar />
-    <div class="bg-circle circle-1" />
-    <div class="bg-circle circle-2" />
-    <div class="bg-circle circle-3" />
     <el-container class="content-shell">
       <el-header height="72px" class="header">
         <HeaderNav />
@@ -11,15 +8,15 @@
       <el-main class="main-area">
         <router-view v-slot="{ Component }">
           <transition name="fade-slide">
-            <component :is="Component" :key="$route.fullPath" />
+            <component :is="Component" :key="$route.meta.fullscreenMap ? $route.path : $route.fullPath" />
           </transition>
         </router-view>
       </el-main>
-      <el-footer height="auto" class="footer">
+      <el-footer v-if="!$route.meta.fullscreenMap" height="auto" class="footer">
         <FooterBar />
       </el-footer>
     </el-container>
-    <el-backtop :bottom="36" :right="28" class="custom-backtop" />
+    <el-backtop v-if="!$route.meta.fullscreenMap" :bottom="36" :right="28" class="custom-backtop" />
   </div>
 </template>
 
@@ -32,11 +29,15 @@ import NProgressBar from '@/components/NProgressBar.vue';
 <style scoped>
 .layout {
   min-height: 100vh;
-  background: #f5f7fa;
+  background: var(--bg-body);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.layout.map-layout {
+  background: #eef3f8;
 }
 
 .content-shell {
@@ -48,8 +49,8 @@ import NProgressBar from '@/components/NProgressBar.vue';
 }
 
 .header {
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
   padding: 0 24px;
   position: sticky;
   top: 0;
@@ -66,6 +67,11 @@ import NProgressBar from '@/components/NProgressBar.vue';
   scrollbar-gutter: stable both-edges;
 }
 
+.map-layout .main-area {
+  overflow: hidden;
+  scrollbar-gutter: auto;
+}
+
 .footer {
   background: #1f2937;
   color: #9ca3af;
@@ -74,50 +80,6 @@ import NProgressBar from '@/components/NProgressBar.vue';
   flex-shrink: 0;
   backface-visibility: hidden;
   transform: translateZ(0);
-}
-
-.bg-circle {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.55;
-  animation: float 12s ease-in-out infinite;
-}
-
-.circle-1 {
-  width: 320px;
-  height: 320px;
-  background: #9cc7ff;
-  top: -120px;
-  left: -80px;
-}
-
-.circle-2 {
-  width: 260px;
-  height: 260px;
-  background: #ffe5c2;
-  bottom: 60px;
-  right: 120px;
-  animation-delay: 1.6s;
-}
-
-.circle-3 {
-  width: 220px;
-  height: 220px;
-  background: #c6f2e6;
-  bottom: -80px;
-  left: 20%;
-  animation-delay: 0.8s;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-22px);
-  }
 }
 
 .fade-slide-enter-active,

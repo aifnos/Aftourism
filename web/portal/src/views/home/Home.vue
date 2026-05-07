@@ -8,7 +8,7 @@
             <div class="banner-overlay">
               <div class="banner-content">
                 <h1>{{ item.title || '文旅精彩，触手可及' }}</h1>
-                <p>发现城市之美，收获旅途惊喜</p>
+                <p>发现西藏之美，收获旅途惊喜</p>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="intro-content">
           <div class="intro-text">
-            <h3 class="intro-title">{{ introContent.title || '城市文旅简介' }}</h3>
+            <h3 class="intro-title">{{ introContent.title || '西藏文旅简介' }}</h3>
             <div class="intro-body" v-html="introContent.content || defaultIntro"></div>
             <el-button type="primary" size="large" class="intro-btn" @click="goScenic">了解更多</el-button>
           </div>
@@ -149,7 +149,7 @@ const latestActivities = ref<ActivityItem[]>([]);
 const homeBanners = ref<HomeBannerItem[]>([]);
 const introContent = ref<HomeIntroItem>({});
 const defaultIntro =
-  '欢迎来到本地文旅一站式服务平台，这里汇聚城市的文化记忆与最新活动资讯，为您的旅途提供可信赖的参考。';
+  '欢迎来到西藏文旅一站式服务平台，这里汇聚雪域高原的文化记忆与最新活动资讯，为您的旅途提供可信赖的参考。';
 
 onMounted(async () => {
   // 首页轮播与简介
@@ -166,7 +166,9 @@ onMounted(async () => {
 });
 
 const goScenic = () => router.push('/scenic');
-const goDetail = (id: number) => router.push(`/scenic/${id}`);
+const goDetail = (id?: number) => {
+  if (id) router.push(`/scenic/${id}`);
+};
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
@@ -179,7 +181,7 @@ const formatDate = (dateStr: string) => {
 
 <style scoped>
 .home-container {
-  background: #fff;
+  background: var(--bg-card);
 }
 
 /* Banner Styles */
@@ -253,7 +255,7 @@ const formatDate = (dateStr: string) => {
 .divider {
   width: 60px;
   height: 4px;
-  background: #2c7be5;
+  background: var(--primary-color);
   margin: 0 auto;
 }
 

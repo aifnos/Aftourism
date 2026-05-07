@@ -103,7 +103,7 @@ cd Aftourism-server
 ### 2. 数据库初始化
 ```bash
 # 创建数据库
-mysql -u root -p < docs/SQL/main.sql
+mysql -u root -p < "docs/SQL/全量备份2026-4-22.sql"
 ```
 
 ### 3. 后端启动
@@ -146,9 +146,12 @@ spring:
 
 ## 📖 API 文档
 
-启动后端服务后，访问以下地址查看 API 文档：
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
-- API 文档: [docs/all/BACKEND_API.md](docs/all/BACKEND_API.md)
+当前接口资料以仓库内静态文档为准：
+
+- 登录接口：[docs/login/login.md](docs/login/login.md)
+- RBAC 权限：[docs/RBAC/RBAC.md](docs/RBAC/RBAC.md)
+- 门户 OpenAPI：[docs/PortalAPI/openapi.yaml](docs/PortalAPI/openapi.yaml)
+- 后台补充接口：[docs/PortalAPI](docs/PortalAPI)
 
 ## 🧪 测试
 
@@ -193,4 +196,9 @@ npm run test
 
 想要深入了解项目？可以查看以下文档：
 
-[快速开始指南](/docs) 
+- [开发者手册](docs/DEVELOPER_GUIDE.md)：项目架构、本地启动、后端/前端代码地图、核心机制、数据库说明与常见开发任务
+- [项目包结构说明](docs/Project.md)：后端模块和包结构概览
+- [登录接口文档](docs/login/login.md)：管理员与门户用户登录协议
+- [RBAC 权限文档](docs/RBAC/RBAC.md)：后台角色、菜单、按钮与资源权限设计
+- [门户 API 文档](docs/PortalAPI/openapi.yaml)：前台门户接口 OpenAPI 说明
+- [最新数据库全量备份](docs/SQL/全量备份2026-4-22.sql)：当前数据库结构与数据快照，开发核对时优先级高于旧 SQL 文档

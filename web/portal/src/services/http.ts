@@ -1,13 +1,13 @@
-import axios, { type AxiosRequestConfig } from 'axios';
+import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { ElMessage } from 'element-plus';
 
 // 中文注释：统一的 HTTP 客户端，负责携带 Token、处理基础错误提示
-const http = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '',
   timeout: 15000
 });
 
-http.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((config) => {
   // 中文注释：从本地读取令牌，避免循环依赖 pinia store
   const token = localStorage.getItem('portal_token');
   if (token) {
@@ -17,8 +17,8 @@ http.interceptors.request.use((config) => {
   return config;
 });
 
-http.interceptors.response.use(
-  (response) => {
+axiosInstance.interceptors.response.use(
+  ((response: AxiosResponse) => {
     const resp = response.data as ApiResponse<unknown> | unknown;
     if (resp && typeof resp === 'object' && 'code' in (resp as ApiResponse<unknown>)) {
       const r = resp as ApiResponse<unknown>;
@@ -32,7 +32,7 @@ http.interceptors.response.use(
       return Promise.reject(err);
     }
     return resp;
-  },
+  }) as any,
   (error) => {
     const status = error.response?.status;
     const message = error.response?.data?.msg || error.message || '网络异常';
@@ -59,6 +59,21 @@ http.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
+const http = {
+  get<T = unknown, R = T>(url: string, config?: AxiosRequestConfig) {
+    return axiosInstance.get<unknown, R>(url, config);
+  },
+  post<T = unknown, R = T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
+    return axiosInstance.post<unknown, R>(url, data, config);
+  },
+  put<T = unknown, R = T>(url: string, data?: unknown, config?: AxiosRequestConfig) {
+    return axiosInstance.put<unknown, R>(url, data, config);
+  },
+  delete<T = unknown, R = T>(url: string, config?: AxiosRequestConfig) {
+    return axiosInstance.delete<unknown, R>(url, config);
+  }
+};
 
 export default http;
 

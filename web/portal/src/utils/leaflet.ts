@@ -1,11 +1,12 @@
 export type LatLngTuple = [number, number];
 
 export interface LeafletMap {
-  setView(center: LatLngTuple, zoom: number): LeafletMap;
+  setView(center: LatLngTuple, zoom: number, options?: { animate?: boolean; duration?: number }): LeafletMap;
   remove(): void;
   invalidateSize(): void;
-  fitBounds(bounds: LatLngTuple[], options?: { padding?: LatLngTuple }): void;
+  fitBounds(bounds: LatLngTuple[], options?: { padding?: LatLngTuple; maxZoom?: number }): void;
   flyTo(center: LatLngTuple, zoom: number, options?: { duration?: number }): void;
+  getContainer(): HTMLElement;
 }
 
 export interface LeafletTileLayer {
@@ -20,14 +21,21 @@ export interface LeafletLayerGroup {
 
 export interface LeafletCircleMarker {
   addTo(group: LeafletLayerGroup): LeafletCircleMarker;
-  bindPopup(content: string, options?: { maxWidth?: number }): void;
+  bindPopup(content: string, options?: { maxWidth?: number; className?: string; closeButton?: boolean }): void;
   openPopup(): void;
-  on(event: 'click' | 'mouseover' | 'mouseout', handler: () => void): void;
+  on(event: 'click' | 'mouseover' | 'mouseout', handler: (event?: Event) => void): void;
   setStyle(style: { radius?: number; fillColor?: string }): void;
 }
 
+export interface LeafletControl {
+  addTo(map: LeafletMap): LeafletControl;
+}
+
 export interface LeafletNamespace {
-  map(target: string, options?: { preferCanvas?: boolean }): LeafletMap;
+  map(target: string | HTMLElement, options?: { preferCanvas?: boolean; zoomControl?: boolean }): LeafletMap;
+  control: {
+    zoom(options?: { position?: string }): LeafletControl;
+  };
   tileLayer(url: string, options?: { subdomains?: string; maxZoom?: number; attribution?: string }): LeafletTileLayer;
   layerGroup(): LeafletLayerGroup;
   circleMarker(center: LatLngTuple, options: {
@@ -37,6 +45,7 @@ export interface LeafletNamespace {
     fillOpacity?: number;
     color?: string;
     weight?: number;
+    className?: string;
   }): LeafletCircleMarker;
 }
 

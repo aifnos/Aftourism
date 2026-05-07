@@ -55,6 +55,7 @@ public class PortalUserManageServiceImpl implements PortalUserManageService {
         vo.setId(user.getId());
         vo.setUsername(user.getUsername());
         vo.setNickname(user.getNickname());
+        vo.setAvatar(user.getAvatar());
         vo.setPhone(user.getPhone());
         vo.setEmail(user.getEmail());
         vo.setStatus(user.getStatus());

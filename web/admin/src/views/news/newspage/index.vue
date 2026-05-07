@@ -103,13 +103,20 @@ defineOptions({ name: 'NewsPage' })
 
 // 新闻项类型定义
 type NewsItem = Api.News.NewsItem
+type NewsSearchForm = { title?: string; status?: NewsItem['status'] | '' }
 
 // 对话框类型：新增或编辑
 const dialogType = ref<'add' | 'edit'>('add')
 // 对话框显示状态
 const dialogVisible = ref(false)
 // 当前编辑的新闻数据
-const current = reactive<Partial<NewsItem>>({ title: '', content: '', coverUrl: '', status: '1', author: '' })
+const current = reactive<Partial<NewsItem> & { content: string }>({
+  title: '',
+  content: '',
+  coverUrl: '',
+  status: '1',
+  author: ''
+})
 // 表单引用
 const formRef = ref()
 
@@ -125,7 +132,7 @@ const rules = reactive({
 // 搜索栏引用
 const searchBarRef = ref()
 // 搜索表单数据
-const searchForm = ref<{ title?: string; status?: string }>({ title: '', status: '' })
+const searchForm = ref<NewsSearchForm>({ title: '', status: '' })
 
 // 搜索栏配置项
 const searchItems = computed(() => [
@@ -161,11 +168,7 @@ const {
 } = useTable({
   core: {
     apiFn: fetchGetNewsList,
-    apiParams: {
-      current: 1,
-      size: 10,
-      ...searchForm.value
-    },
+    apiParams: { current: 1, size: 10 },
     columnsFactory: () => [
       { type: 'selection', width: 50 },
       { type: 'globalIndex', width: 60, label: '序号' },
@@ -184,7 +187,10 @@ const dialogTitle = computed(() => (dialogType.value === 'edit' ? '编辑新闻'
 // 处理搜索
 const handleSearch = async () => {
   await searchBarRef.value?.validate?.()
-  const params = { ...searchForm.value }
+  const params: Api.News.NewsSearchParams = {
+    title: searchForm.value.title || undefined,
+    status: searchForm.value.status || undefined
+  }
   Object.assign(searchParams, params)
   getData()
 }
